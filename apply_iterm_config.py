@@ -73,8 +73,6 @@ async def apply_changes(connection):
 
     if "badge" in config:
         change.set_badge_text(config["badge"])
-    elif repo_name:
-        change.set_badge_text(repo_name)
     else:
         change.set_badge_text(default_profile.badge_text or "")
 
