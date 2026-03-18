@@ -48,7 +48,7 @@ Create a `.iterm.json` file in any directory:
 
 ```json
 {
-  "title": "My Project",
+  "subtitle": "My Project",
   "background_color": "#1e1e2e",
   "tab_color": "#ff0000",
   "badge": "my-project"
@@ -59,7 +59,7 @@ All fields are optional. Unset fields reset to your default iTerm2 profile value
 
 | Field | Description |
 |---|---|
-| `title` | Subtitle displayed below the main window/tab title |
+| `subtitle` | Subtitle displayed below the main window/tab title |
 | `background_color` | Terminal background color (hex) |
 | `tab_color` | Tab color (hex) |
 | `badge` | Badge text (displayed in the top-right of the terminal) |

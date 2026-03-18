@@ -44,8 +44,8 @@ async def apply_changes(connection):
     else:
         change.set_badge_text(default_profile.badge_text or "")
 
-    if "title" in config:
-        change.set_subtitle(config["title"])
+    if "subtitle" in config:
+        change.set_subtitle(config["subtitle"])
     else:
         change.set_subtitle(default_profile.subtitle or "")
 
