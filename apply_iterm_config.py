@@ -8,7 +8,7 @@ import subprocess
 import sys
 
 CONFIG_FILE = ".iterm.json"
-GLOBAL_CONFIG_FILE = os.path.expanduser("~/.iterm.json")
+GLOBAL_CONFIG_FILE = os.path.expanduser("~/.iterm-global.json")
 
 def hex_to_rgb(h):
     h = h.lstrip('#')
@@ -36,7 +36,6 @@ def git_info(cwd):
 async def apply_changes(connection):
     config_dir = sys.argv[1] if len(sys.argv) > 1 else ""
     cwd = sys.argv[2] if len(sys.argv) > 2 else os.getcwd()
-
     if config_dir:
         with open(os.path.join(config_dir, CONFIG_FILE)) as f:
             config = json.load(f)

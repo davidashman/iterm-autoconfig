@@ -1,6 +1,6 @@
 # iterm-autoconfig
 
-An [oh-my-zsh](https://ohmyz.sh) plugin that automatically applies iTerm2 profile settings when you change directories. Place a `.iterm.json` file in any project root and your terminal will update its colors, badge, and subtitle whenever you `cd` into that project. A global `~/.iterm.json` can also enable automatic coloring for all git repositories.
+An [oh-my-zsh](https://ohmyz.sh) plugin that automatically applies iTerm2 profile settings when you change directories. Place a `.iterm.json` file in any project root and your terminal will update its colors, badge, and subtitle whenever you `cd` into that project. A global `~/.iterm-global.json` can also enable automatic coloring for all git repositories.
 
 ## Features
 
@@ -66,7 +66,7 @@ All fields are optional. Unset fields reset to your default iTerm2 profile value
 
 ## Global config
 
-A `~/.iterm.json` file applies when no local `.iterm.json` is found. It supports all the same fields, plus:
+A `~/.iterm-global.json` file applies when no local `.iterm.json` is found. It supports all the same fields, plus:
 
 | Field | Description |
 |---|---|
