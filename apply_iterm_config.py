@@ -45,13 +45,9 @@ async def apply_changes(connection, config_dir):
         change.set_badge_text(default_profile.badge_text or "")
 
     if "title" in config:
-        change.set_name(config["title"])
-        change.set_title_components([iterm2.TitleComponents.PROFILE_NAME])
+        change.set_subtitle(config["title"])
     else:
-        if default_profile.name is not None:
-            change.set_name(default_profile.name)
-        if default_profile.title_components is not None:
-            change.set_title_components(default_profile.title_components)
+        change.set_subtitle(default_profile.subtitle or "")
 
     if config_dir:
         change.set_initial_directory_mode(iterm2.InitialWorkingDirectory.INITIAL_WORKING_DIRECTORY_CUSTOM)

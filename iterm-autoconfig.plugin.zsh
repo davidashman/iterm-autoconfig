@@ -28,7 +28,11 @@ _iterm_apply_config() {
   fi
 }
 
-_iterm_start_daemon
+_iterm_init() {
+  _iterm_start_daemon
+  add-zsh-hook -d precmd _iterm_init
+}
 
 autoload -U add-zsh-hook
+add-zsh-hook precmd _iterm_init
 add-zsh-hook chpwd _iterm_apply_config
