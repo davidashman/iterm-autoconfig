@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
-import asyncio
 import iterm2
 import json
 import os
 import sys
 
-SOCKET_PATH = os.path.expanduser("~/.iterm-autoconfig.sock")
 CONFIG_FILE = ".iterm.json"
 
 def hex_to_rgb(h):
     h = h.lstrip('#')
     return tuple(int(h[i:i+2], 16) for i in (0, 2, 4))
 
-async def apply_changes(connection, config_dir):
+async def apply_changes(connection):
+    config_dir = sys.argv[1] if len(sys.argv) > 1 else ""
+
     if config_dir:
         with open(os.path.join(config_dir, CONFIG_FILE)) as f:
             config = json.load(f)
@@ -57,35 +57,4 @@ async def apply_changes(connection, config_dir):
 
     await session.async_set_profile_properties(change)
 
-async def handle_client(connection, reader, writer):
-    try:
-        data = await reader.readline()
-        config_dir = data.decode().strip()
-        await apply_changes(connection, config_dir)
-    except Exception:
-        pass
-    finally:
-        writer.close()
-        try:
-            await writer.wait_closed()
-        except Exception:
-            pass
-
-async def daemon_main(connection):
-    if os.path.exists(SOCKET_PATH):
-        os.unlink(SOCKET_PATH)
-    server = await asyncio.start_unix_server(
-        lambda r, w: handle_client(connection, r, w),
-        SOCKET_PATH
-    )
-    async with server:
-        await server.serve_forever()
-
-async def direct_main(connection):
-    config_dir = sys.argv[1] if len(sys.argv) > 1 else ""
-    await apply_changes(connection, config_dir)
-
-if '--daemon' in sys.argv:
-    iterm2.run_forever(daemon_main)
-else:
-    iterm2.run_until_complete(direct_main)
+iterm2.run_until_complete(apply_changes)
