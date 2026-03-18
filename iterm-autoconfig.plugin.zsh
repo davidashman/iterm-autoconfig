@@ -13,7 +13,7 @@ _iterm_apply_config() {
     dir="${dir:h}"
   done
 
-  python3 "$_iterm_autoconfig_script" "$config_dir" &!
+  python3 "$_iterm_autoconfig_script" "$config_dir" "$PWD" &!
 }
 
 autoload -U add-zsh-hook

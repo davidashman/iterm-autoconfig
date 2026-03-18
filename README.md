@@ -1,6 +1,6 @@
 # iterm-autoconfig
 
-An [oh-my-zsh](https://ohmyz.sh) plugin that automatically applies iTerm2 profile settings when you change directories. Place a `.iterm.json` file in any project root and your terminal will update its colors, badge, and title whenever you `cd` into that project.
+An [oh-my-zsh](https://ohmyz.sh) plugin that automatically applies iTerm2 profile settings when you change directories. Place a `.iterm.json` file in any project root and your terminal will update its colors, badge, and subtitle whenever you `cd` into that project. A global `~/.iterm.json` can also enable automatic coloring for all git repositories.
 
 ## Features
 
@@ -63,6 +63,22 @@ All fields are optional. Unset fields reset to your default iTerm2 profile value
 | `background_color` | Terminal background color (hex) |
 | `tab_color` | Tab color (hex) |
 | `badge` | Badge text (displayed in the top-right of the terminal) |
+
+## Global config
+
+A `~/.iterm.json` file applies when no local `.iterm.json` is found. It supports all the same fields, plus:
+
+| Field | Description |
+|---|---|
+| `git` | `true` to enable automatic coloring for git repositories |
+
+When `git` is enabled, any git repo without a local `.iterm.json` will automatically get a soft tab color derived from the repository name (consistent across sessions), with the badge set to the repo name and the subtitle set to `repo · branch`.
+
+```json
+{
+  "git": true
+}
+```
 
 ## How it works
 
