@@ -8,7 +8,7 @@ An [oh-my-zsh](https://ohmyz.sh) plugin that automatically applies iTerm2 profil
 - Walks up the directory tree to find the nearest `.iterm.json`
 - Resets to your default iTerm2 profile when leaving a configured directory
 - Sets the default working directory for new splits and tabs to the project root
-- Uses a persistent background daemon to eliminate per-`cd` startup latency
+- Runs lightweight and stateless — no background daemon or socket required
 
 ## Requirements
 
@@ -59,11 +59,11 @@ All fields are optional. Unset fields reset to your default iTerm2 profile value
 
 | Field | Description |
 |---|---|
-| `title` | Window/tab title |
+| `title` | Subtitle displayed below the main window/tab title |
 | `background_color` | Terminal background color (hex) |
 | `tab_color` | Tab color (hex) |
 | `badge` | Badge text (displayed in the top-right of the terminal) |
 
 ## How it works
 
-On shell startup, a daemon is launched that maintains a persistent connection to the iTerm2 Python API. When you `cd`, the plugin sends the config directory path to the daemon over a Unix socket (`~/.iterm-autoconfig.sock`) — just a socket write, no Python startup overhead. If the daemon is not running, the plugin falls back to direct execution and automatically restarts the daemon.
+The plugin hooks into zsh's `chpwd` event, which fires whenever you change directories. On each `cd`, it walks up the directory tree looking for the nearest `.iterm.json`, then spawns `apply_iterm_config.py` in the background with the config path. The script connects to the iTerm2 Python API, applies the settings to the current session, and exits.
