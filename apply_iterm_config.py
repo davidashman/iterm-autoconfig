@@ -6,6 +6,7 @@ import json
 import os
 import subprocess
 import sys
+import types
 
 CONFIG_FILE = ".iterm.json"
 GLOBAL_CONFIG_FILE = os.path.expanduser("~/.iterm-global.json")
@@ -71,6 +72,16 @@ async def apply_changes(connection):
         if default_profile.tab_color is not None:
             change.set_tab_color(default_profile.tab_color)
 
+    if "icon" in config:
+        icon_path = config["icon"]
+        if not icon_path.startswith("/"):
+            icon_path = os.path.join(config_dir or cwd, icon_path)
+        change.set_icon_mode(types.SimpleNamespace(value=2))  # 2 = CUSTOM
+        change.set_custom_icon_path(icon_path)
+    else:
+        change.set_icon_mode(types.SimpleNamespace(value=default_profile.icon_mode))
+        change.set_custom_icon_path(default_profile.custom_icon_path or "")
+
     if "badge" in config:
         change.set_badge_text(config["badge"])
     else:
@@ -83,9 +94,9 @@ async def apply_changes(connection):
     else:
         change.set_subtitle(default_profile.subtitle or "")
 
-    if config_dir:
+    if config_dir or repo_name:
         change.set_initial_directory_mode(iterm2.InitialWorkingDirectory.INITIAL_WORKING_DIRECTORY_CUSTOM)
-        change.set_custom_directory(config_dir)
+        change.set_custom_directory(config_dir or cwd)
     else:
         change.set_initial_directory_mode(iterm2.InitialWorkingDirectory.INITIAL_WORKING_DIRECTORY_HOME)
 
