@@ -74,7 +74,7 @@ A `~/.iterm-global.json` file applies when no local `.iterm.json` is found. It s
 |---|---|
 | `git` | `true` to enable automatic coloring for git repositories |
 
-When `git` is enabled, any git repo without a local `.iterm.json` will automatically get a soft tab color derived from the repository name (consistent across sessions), with the badge set to the repo name and the subtitle set to `repo · branch`. The working directory for new splits and tabs is also set to the current directory.
+When `git` is enabled, any git repo without a local `.iterm.json` will automatically get a soft tab color derived from the repository name (consistent across sessions), with the subtitle set to `repo · branch`. The working directory for new splits is also set to the current directory.
 
 ```json
 {
