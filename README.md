@@ -51,7 +51,8 @@ Create a `.iterm.json` file in any directory:
   "subtitle": "My Project",
   "background_color": "#1e1e2e",
   "tab_color": "#ff0000",
-  "badge": "my-project"
+  "badge": "my-project",
+  "icon": "icon.png"
 }
 ```
 
@@ -63,6 +64,7 @@ All fields are optional. Unset fields reset to your default iTerm2 profile value
 | `background_color` | Terminal background color (hex) |
 | `tab_color` | Tab color (hex) |
 | `badge` | Badge text (displayed in the top-right of the terminal) |
+| `icon` | Tab icon image path. Relative paths are resolved from the directory containing `.iterm.json` |
 
 ## Global config
 
@@ -72,7 +74,7 @@ A `~/.iterm-global.json` file applies when no local `.iterm.json` is found. It s
 |---|---|
 | `git` | `true` to enable automatic coloring for git repositories |
 
-When `git` is enabled, any git repo without a local `.iterm.json` will automatically get a soft tab color derived from the repository name (consistent across sessions), with the badge set to the repo name and the subtitle set to `repo · branch`.
+When `git` is enabled, any git repo without a local `.iterm.json` will automatically get a soft tab color derived from the repository name (consistent across sessions), with the badge set to the repo name and the subtitle set to `repo · branch`. The working directory for new splits and tabs is also set to the current directory.
 
 ```json
 {
